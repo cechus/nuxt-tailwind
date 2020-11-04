@@ -27,6 +27,7 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    'nuxt-purgecss',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -40,4 +41,22 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+  purgeCSS: {
+    // mode: MODES.webpack,
+    enabled: true, // or `false` when in dev/debug mode
+    paths: [
+      'components/**/*.vue',
+      'layouts/**/*.vue',
+      'pages/**/*.vue',
+      'plugins/**/*.js',
+    ],
+    styleExtensions: ['.css'],
+    whitelist: ['body', 'html', 'nuxt-progress'],
+    extractors: [
+      {
+        extractor: (content) => content.match(/[A-z0-9-:\\/]+/g) || [],
+        extensions: ['html', 'vue', 'js'],
+      },
+    ],
+  },
 }
